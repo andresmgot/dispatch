@@ -164,7 +164,7 @@ type dispatchInstallConfig struct {
 	TLS                *tlsConfig            `json:"tls,omitempty" validate:"required"`
 	SkipAuth           bool                  `json:"skipAuth,omitempty" validate:"omitempty"`
 	Insecure           bool                  `json:"insecure,omitempty" validate:"omitempty"`
-	Faas               string                `json:"faas,omitempty" validate:"required,eq=openfaas|eq=riff"`
+	Faas               string                `json:"faas,omitempty" validate:"required,eq=openfaas|eq=riff|eq=kubeless"`
 	EventTransport     string                `json:"eventTransport,omitempty" validate:"required,eq=kafka|eq=rabbitmq"`
 	Service            *serviceCatalogConfig `json:"service,omitemtpy" validate:"required"`
 }

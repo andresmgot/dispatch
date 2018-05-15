@@ -63,7 +63,6 @@ type cliFunction struct {
 func CallCreateFunction(f interface{}) error {
 	client := functionManagerClient()
 	function := f.(*models.Function)
-
 	params := &fnstore.AddFunctionParams{
 		Body:    function,
 		Context: context.Background(),
@@ -80,7 +79,7 @@ func CallCreateFunction(f interface{}) error {
 func createFunction(out, errOut io.Writer, cmd *cobra.Command, args []string) error {
 	functionPath := args[2]
 	function := &models.Function{
-		Image:    &args[0],
+		Image:    args[0],
 		Name:     &args[1],
 		Secrets:  fnSecrets,
 		Services: fnServices,

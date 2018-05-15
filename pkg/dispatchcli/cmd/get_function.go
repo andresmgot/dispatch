@@ -91,11 +91,11 @@ func formatFunctionOutput(out io.Writer, list bool, functions []*models.Function
 		return encoder.Encode(functions[0])
 	}
 	table := tablewriter.NewWriter(out)
-	table.SetHeader([]string{"Name", "Image", "Status", "Created Date"})
+	table.SetHeader([]string{"Name", "Image", "Runtime", "Status", "Created Date"})
 	table.SetBorders(tablewriter.Border{Left: false, Top: false, Right: false, Bottom: false})
 	table.SetCenterSeparator("")
 	for _, function := range functions {
-		table.Append([]string{*function.Name, *function.Image, string(function.Status), time.Unix(function.CreatedTime, 0).Local().Format(time.UnixDate)})
+		table.Append([]string{*function.Name, function.Image, function.Runtime, string(function.Status), time.Unix(function.CreatedTime, 0).Local().Format(time.UnixDate)})
 	}
 	table.Render()
 	return nil

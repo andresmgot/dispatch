@@ -69,7 +69,8 @@ func functionEntityToModel(f *functions.Function) *models.Function {
 		Kind:        utils.FunctionKind,
 		ID:          strfmt.UUID(f.ID),
 		FaasID:      strfmt.UUID(f.FaasID),
-		Image:       swag.String(f.ImageName),
+		Image:       f.ImageName,
+		Runtime:     f.Runtime,
 		Code:        swag.String(f.Code),
 		Schema: &models.Schema{
 			In:  f.Schema.In,
@@ -125,7 +126,8 @@ func functionModelOntoEntity(m *models.Function, e *functions.Function) error {
 	}
 	e.Code = *m.Code
 	e.Main = main
-	e.ImageName = *m.Image
+	e.ImageName = m.Image
+	e.Runtime = m.Runtime
 	e.FaasID = string(m.FaasID)
 	e.Tags = map[string]string{}
 	for _, t := range m.Tags {

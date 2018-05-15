@@ -52,19 +52,23 @@ func (h *funcEntityHandler) Add(obj entitystore.Entity) (err error) {
 		h.Store.UpdateWithError(e, err)
 	}()
 
-	img, err := h.getImage(e.ImageName)
-	if err != nil {
-		return errors.Wrapf(err, "Error when fetching image for function %s", e.Name)
-	}
+	image := ""
+	if e.ImageName != "" {
+		img, err := h.getImage(e.ImageName)
+		if err != nil {
+			return errors.Wrapf(err, "Error when fetching image for function %s", e.Name)
+		}
 
-	if img.Status == imagemodels.StatusERROR {
-		return errors.Errorf("image in error status for function '%s', image name: '%s', reason: %v", e.ID, e.ImageName, img.Reason)
-	}
+		if img.Status == imagemodels.StatusERROR {
+			return errors.Errorf("image in error status for function '%s', image name: '%s', reason: %v", e.ID, e.ImageName, img.Reason)
+		}
 
-	// If the image isn't ready yet, we cannot proceed.  The loop should pick up the work
-	// next iteration.
-	if img.Status != imagemodels.StatusREADY {
-		return
+		// If the image isn't ready yet, we cannot proceed.  The loop should pick up the work
+		// next iteration.
+		if img.Status != imagemodels.StatusREADY {
+			return err
+		}
+		image = img.DockerURL
 	}
 
 	e.Status = entitystore.StatusCREATING
@@ -73,7 +77,7 @@ func (h *funcEntityHandler) Add(obj entitystore.Entity) (err error) {
 	if err := h.FaaS.Create(e, &functions.Exec{
 		Code:  e.Code,
 		Main:  e.Main,
-		Image: img.DockerURL,
+		Image: image,
 	}); err != nil {
 		return errors.Wrapf(err, "Driver error when creating a FaaS function")
 	}

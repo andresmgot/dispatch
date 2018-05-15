@@ -25,6 +25,7 @@ type Function struct {
 	Code      string   `json:"code"`
 	Main      string   `json:"main"`
 	ImageName string   `json:"image"`
+	Runtime   string   `json:"runtime"`
 	Schema    *Schema  `json:"schema,omitempty"`
 	Secrets   []string `json:"secrets,omitempty"`
 	Services  []string `json:"services,omitempty"`
