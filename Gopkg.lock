@@ -469,6 +469,18 @@
   revision = "03f45bd4b7dad4734bc4620e46a35789349abb20"
 
 [[projects]]
+  name = "github.com/kubeless/kubeless"
+  packages = [
+    "pkg/apis/kubeless",
+    "pkg/apis/kubeless/v1beta1",
+    "pkg/client/clientset/versioned",
+    "pkg/client/clientset/versioned/scheme",
+    "pkg/client/clientset/versioned/typed/kubeless/v1beta1"
+  ]
+  revision = "147424da453e476bee4530c1554bb9c9c4ec9ac5"
+  version = "v1.0.0-alpha.2"
+
+[[projects]]
   name = "github.com/kubernetes-incubator/service-catalog"
   packages = [
     "pkg/apis/servicecatalog",
@@ -1066,6 +1078,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f225edd7043b3ae5bc569a2f83088bf0b532f1d9303c57d6c6f7cfb9c2edf04c"
+  inputs-digest = "64b29dd2a7ea4db204253f432ece39e078c274d9f71eff13d9346b2988081df3"
   solver-name = "gps-cdcl"
   solver-version = 1

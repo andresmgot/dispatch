@@ -1,0 +1,14 @@
+FROM node:6
+
+RUN apt-get update &&  apt-get install git
+
+ADD package.json /
+
+RUN npm install
+
+ADD lib/helper.js /lib/
+ADD kubeless.js /
+
+USER 1000
+
+CMD ["node", "/kubeless.js"]

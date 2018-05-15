@@ -1,0 +1,16 @@
+= riff: Samples
+
+To riff link:../README.adoc[README]
+
+== Samples
+
+* Java
+  - link:java/greeter/README.adoc[greeter]
+* Node
+  - link:node/square/README.adoc[square]
+* Python
+  - link:python/sentiments/README.adoc[sentiments]
+* Shell
+  - link:shell/echo/README.adoc[echo]
+  - link:shell/hello/README.adoc[hello]
+  - link:shell/wordcount/README.adoc[wordcount]

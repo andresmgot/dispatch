@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: http-gateway
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: http-gateway
+      labels:
+        app: riff
+        component: http-gateway
+    spec:
+      containers:
+      - image: projectriff/http-gateway:0.0.5-snapshot
+        name: http-gateway
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /application/status
+            port: 8080
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /application/status
+            port: 8080
+          periodSeconds: 5
+        env:
+        - name: KAFKA_BROKERS
+          value: kafka.riff-system:9092
